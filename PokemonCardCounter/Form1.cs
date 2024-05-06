@@ -20,6 +20,12 @@ namespace PokemonCardCounter
             InitializeComponent();
         }
 
+        //Next up: Formatting is up next. Probably put text boxes above the images, make it look nice and pretty big text. Will need to add some text boxes
+        //and do some maneuvering with where to send the text. Might want a summary (the all-together) somewhere. Maybe bottom right for now? ton of space since
+        //Only 9 generations... for now :)
+
+
+
         //A few notes about this code. The way I noted the cards is not the most efficient. Mainly for Tag Team cards, if I have an Umbreon & Darkrai Tag Team GX, 
         //I wrote down 1 for Umbreon, and 1 for Darkrai (2 cards when it should just be one), so there will be very minor discrepancies in the totals. 
         //BUT, this also doesn't count all of my trainer cards, since there's really not a good way of writing those down without being either SUPER specific
