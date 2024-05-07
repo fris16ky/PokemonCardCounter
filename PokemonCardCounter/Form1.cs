@@ -7,10 +7,8 @@ namespace PokemonCardCounter
     using System.Security;
     using System.Windows.Forms;
 
-    /* Only future updates would be probably making the code more efficient (instead of having two fields for each generation (total and bool), updating the comments,
-    and maybe formatting the output better. Maybe some visuals with my favorite Pokemon from each generation? Now THAT'd be fun!!!
-    Or, even better (?), add my favorite pulled card/just a dope card from each Generation? That would be fun as fuck, although the rectangles the images
-    will be may make it awkward 
+    /* Only future updates would be probably making the code more efficient (instead of having two fields for each generation (total and bool), maybe add a fancy way
+    of displaying the info (i.e. transition). 
     */
 
     public partial class Form1 : Form
@@ -18,6 +16,7 @@ namespace PokemonCardCounter
         public Form1()
         {
             InitializeComponent();
+            //As soon as the code starts, make the already-in-place designs invisible until a file is uploaded
             gen1Card.Visible = false;
             gen2Card.Visible = false;
             gen3Card.Visible = false;
@@ -40,26 +39,21 @@ namespace PokemonCardCounter
             totalText.Visible = false;
         }
 
-        //Next up: Formatting is up next. Probably put text boxes above the images, make it look nice and pretty big text. Will need to add some text boxes
-        //and do some maneuvering with where to send the text. Might want a summary (the all-together) somewhere. Maybe bottom right for now? ton of space since
-        //Only 9 generations... for now :)
-        //UPDATE README TOO - might/probably is out of date. 
+        /*A few notes about this code. The way I noted the cards is not the most efficient. Mainly for Tag Team cards, if I have an Umbreon & Darkrai Tag Team GX, 
+        I wrote down 1 for Umbreon, and 1 for Darkrai (2 cards when it should just be one), so there will be very minor discrepancies in the totals. 
+        BUT, this also doesn't count all of my trainer cards, since there's really not a good way of writing those down without being either SUPER specific
+        or very generic, so I'm missing out on a MASSIVE chunk of cards due to that as well. All in good fun though!
 
-
-
-        //A few notes about this code. The way I noted the cards is not the most efficient. Mainly for Tag Team cards, if I have an Umbreon & Darkrai Tag Team GX, 
-        //I wrote down 1 for Umbreon, and 1 for Darkrai (2 cards when it should just be one), so there will be very minor discrepancies in the totals. 
-        //BUT, this also doesn't count all of my trainer cards, since there's really not a good way of writing those down without being either SUPER specific
-        //or very generic, so I'm missing out on a MASSIVE chunk of cards due to that as well. All in good fun though!
-
-        //As another note, I went through and manually cleared the file, but depending on how well I remember, I might 'break it' again. I.e. Lechonk (10) won't count as anything
-        //I've tried to manually adjust all to be Lechonk (10 Normal), which fixes the issue. Also, any other numbers used change the values. i.e. Regigias Lv. 56 Holo, 
-        //or Misty's Starmie CGC 9, or Pikachu and Gen 9 Starters Art Rare. I went through to remove all of those, but I always could have missed a few. 
+        As another note, I went through and manually cleared the file, but depending on how well I remember, I might 'break it' again. I.e. Lechonk (10) won't count as anything
+        I've tried to manually adjust all to be Lechonk (10 Normal), which fixes the issue. Also, any other numbers used change the values. i.e. Regigias Lv. 56 Holo, 
+        or Misty's Starmie CGC 9, or Pikachu and Gen 9 Starters Art Rare. I went through to remove all of those, but I always could have missed a few. 
+        As an update, instead of fully removing, I made the specific ones all one word. Got rid of the 'Gen 9 Starters +' whatever since that's not necessary, 
+        but I changed 'CGC 9' to 'CGC9' so that it's still informative, but won't be picked up as a number
+        */
 
         private void openFileButton_Click(object sender, EventArgs e)
         {
-            //When the button is clicked, show the Dialog box with the openFile button
-
+            //When the Open File button is clicked, filter for only text files, and pre-search for what I named the file ('Pokemon Collection.rtf')
             OpenFileDialog openFileDialog1 = new OpenFileDialog()
             {
                 FileName = "Pokemon Collection.rtf",
@@ -71,7 +65,7 @@ namespace PokemonCardCounter
             {
                 try
                 {
-                    var filePath = openFileDialog1.FileName;
+                    var filePath = openFileDialog1.FileName; //the actual searching using the name if it worked
                     using (StreamReader reader = new StreamReader(filePath))
                     {
                         //Starting to read the file inputted, initialize important values
@@ -80,15 +74,11 @@ namespace PokemonCardCounter
                         bool reachedGen2 = false, reachedGen3 = false, reachedGen4 = false, reachedGen5 = false, reachedGen6 = false, reachedGen7 = false,
                             reachedGen8 = false, reachedGen9 = false, reachedEnd = false;
 
-
-                        //4/12 starting this code: going to try to make this work to give a count for each Generation. Might go bare bones for now, 
-                        //streamline/make it better in the future (aka I'm doing it manually - totalGen2, reachedGen3 etc. 
-                        //There is definitely a way to make it more efficient. i.e. reachedNextGen instead (but for this, skip if it's Gen 8.5, include that in Gen 8
-
                         string line;
                         while ((line = reader.ReadLine()) != null)
                         {
-                            //While there's still lines to read, check if we've reached "Generation 2"
+                            //While there's still lines to read, check if we've reached "Generation 2". If we have, update the boolean to separate
+                            //totals into the different generations
                             if (line.Contains("Generation 2: "))
                             {
                                 reachedGen2 = true;
@@ -141,7 +131,7 @@ namespace PokemonCardCounter
                                 //If it sees "Generation", don't count that number - separated by Generations like "Generation 1" and such
                                 //There is also one card that is a GenerationS Holo (note the s); don't want to skip that line
 
-                                //As of 4/12, I don't think this is necessary? Will go back through the code eventually
+                                //As of 4/12, I don't think this is necessary? Keeping just in case I suppose. 
                                 continue;
                             }
 
@@ -151,7 +141,7 @@ namespace PokemonCardCounter
                             {
                                 if (words[i].StartsWith("("))
                                 {
-                                    //For every first value (i.e. Voltorb (10 normal), splitting by Spaces would mean it tries to see if (10 is a number. 
+                                    //For every first value (i.e. Voltorb (10 normal), splitting by Spaces would mean it tries to see if "(10" is a number. 
                                     //So, we remove the ( to ensure that the first values are counted!
                                     words[i] = words[i].Substring(1);
                                 }
@@ -205,13 +195,13 @@ namespace PokemonCardCounter
                                         totalGen9 += number;
                                         //Manually checked that gen 9 is correct (2 off from my rushed manual calcs), and that it doesn't include the sporadic trainer cards.
                                     }
-                                    //Sum regardless
+                                    //Sum regardless for the total
                                     total += number;
-
                                 }
                             }
                         }
-                        // Display the sums and hide the OpenFile button
+
+                        //Display the sums in the text boxes, make everything visible whilst hiding the OpenFile button
                         openFileButton.Visible = false;
                         totalText.Text = $"Excluding trainer cards, I have {total} Pokemon Cards!\nMy favorite generation of games is 5 or 4 (including Legends Arceus). My favorite Pokemon List probably comes from Gen 8, although 6, 9, and 4 are all really close. \nThe cards that I chose for each generation is my overall favorite Pokemon from each gen, and my favorite card of theirs (excluding Dragapult, the official Pokemon TCG doesn't have the 'Dragapult Prime' card sadly).\nThe Grookey line is my favorite starter, Yveltal is my favorite Legendary, and Darkrai my favorite overall.\nMy favorite card of all time is Charizard Star (Delta Species) from Dragon Frontiers, since I distinctly remember having that card as a kid.";
                         textGen1.Text = $"{totalGen1} cards from Generation 1!";
@@ -256,11 +246,6 @@ namespace PokemonCardCounter
                                     $"Details:\n\n{ex.StackTrace}");
                 }
             }
-        }
-
-        private void totalText_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

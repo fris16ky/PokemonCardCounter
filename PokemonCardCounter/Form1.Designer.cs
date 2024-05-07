@@ -273,8 +273,7 @@
             totalText.Size = new Size(321, 305);
             totalText.TabIndex = 21;
             totalText.Text = "";
-            totalText.TextChanged += totalText_TextChanged;
-            // 
+            //  
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
