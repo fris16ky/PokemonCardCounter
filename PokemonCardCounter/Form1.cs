@@ -18,11 +18,32 @@ namespace PokemonCardCounter
         public Form1()
         {
             InitializeComponent();
+            gen1Card.Visible = false;
+            gen2Card.Visible = false;
+            gen3Card.Visible = false;
+            gen4Card.Visible = false;
+            gen5Card.Visible = false;
+            gen6Card.Visible = false;
+            gen7Card.Visible = false;
+            gen8Card.Visible = false;
+            gen9Card.Visible = false;
+            textGen1.Visible = false;
+            textGen2.Visible = false;
+            textGen3.Visible = false;
+            textGen4.Visible = false;
+            textGen5.Visible = false;
+            textGen6.Visible = false;
+            textGen7.Visible = false;
+            textGen8.Visible = false;
+            textGen9.Visible = false;
+            welcomeText.Visible = false;
+            totalText.Visible = false;
         }
 
         //Next up: Formatting is up next. Probably put text boxes above the images, make it look nice and pretty big text. Will need to add some text boxes
         //and do some maneuvering with where to send the text. Might want a summary (the all-together) somewhere. Maybe bottom right for now? ton of space since
         //Only 9 generations... for now :)
+        //UPDATE README TOO - might/probably is out of date. 
 
 
 
@@ -190,17 +211,38 @@ namespace PokemonCardCounter
                                 }
                             }
                         }
-                        // Display the sums
-                        MessageBox.Show($"Excluding trainer cards, I have {total} Pokemon Cards!\n" +
-                                        $"Of these, I have {totalGen1} cards from Generation 1,\n" +
-                                        $"{totalGen2} cards from Generation 2,\n" +
-                                        $"{totalGen3} cards from Generation 3,\n" +
-                                        $"{totalGen4} cards from Generation 4,\n" +
-                                        $"{totalGen5} cards from Generation 5,\n" +
-                                        $"{totalGen6} cards from Generation 6,\n" +
-                                        $"{totalGen7} cards from Generation 7,\n" +
-                                        $"{totalGen8} cards from Generation 8,\n" +
-                                        $"and {totalGen9} cards from Generation 9!\n");
+                        // Display the sums and hide the OpenFile button
+                        openFileButton.Visible = false;
+                        totalText.Text = $"Excluding trainer cards, I have {total} Pokemon Cards!\nMy favorite generation of games is 5 or 4 (including Legends Arceus). My favorite Pokemon List probably comes from Gen 8, although 6, 9, and 4 are all really close. \nThe cards that I chose for each generation is my overall favorite Pokemon from each gen, and my favorite card of theirs (excluding Dragapult, the official Pokemon TCG doesn't have the 'Dragapult Prime' card sadly).\nThe Grookey line is my favorite starter, Yveltal is my favorite Legendary, and Darkrai my favorite overall.\nMy favorite card of all time is Charizard Star (Delta Species) from Dragon Frontiers, since I distinctly remember having that card as a kid.";
+                        textGen1.Text = $"{totalGen1} cards from Generation 1!";
+                        textGen2.Text = $"{totalGen2} cards from Generation 2!";
+                        textGen3.Text = $"{totalGen3} cards from Generation 3!";
+                        textGen4.Text = $"{totalGen4} cards from Generation 4!";
+                        textGen5.Text = $"{totalGen5} cards from Generation 5!";
+                        textGen6.Text = $"{totalGen6} cards from Generation 6!";
+                        textGen7.Text = $"{totalGen7} cards from Generation 7!";
+                        textGen8.Text = $"{totalGen8} cards from Generation 8!";
+                        textGen9.Text = $"{totalGen9} cards from Generation 9!";
+                        gen1Card.Visible = true;
+                        gen2Card.Visible = true;
+                        gen3Card.Visible = true;
+                        gen4Card.Visible = true;
+                        gen5Card.Visible = true;
+                        gen6Card.Visible = true;
+                        gen7Card.Visible = true;
+                        gen8Card.Visible = true;
+                        gen9Card.Visible = true;
+                        textGen1.Visible = true;
+                        textGen2.Visible = true;
+                        textGen3.Visible = true;
+                        textGen4.Visible = true;
+                        textGen5.Visible = true;
+                        textGen6.Visible = true;
+                        textGen7.Visible = true;
+                        textGen8.Visible = true;
+                        textGen9.Visible = true;
+                        welcomeText.Visible = true;
+                        totalText.Visible = true;
                     }
                 }
                 catch (SecurityException ex)
@@ -214,6 +256,11 @@ namespace PokemonCardCounter
                                     $"Details:\n\n{ex.StackTrace}");
                 }
             }
+        }
+
+        private void totalText_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
