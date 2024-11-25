@@ -265,7 +265,7 @@
             // totalText
             // 
             totalText.BackColor = Color.White;
-            totalText.Font = new Font("Segoe UI", 10F);
+            totalText.Font = new Font("Times New Roman", 13F);
             totalText.ForeColor = Color.SteelBlue;
             totalText.Location = new Point(1069, 509);
             totalText.Name = "totalText";
@@ -273,7 +273,7 @@
             totalText.Size = new Size(321, 305);
             totalText.TabIndex = 21;
             totalText.Text = "";
-            //  
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);

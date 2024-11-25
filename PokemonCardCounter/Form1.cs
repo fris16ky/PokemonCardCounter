@@ -203,16 +203,24 @@ namespace PokemonCardCounter
 
                         //Display the sums in the text boxes, make everything visible whilst hiding the OpenFile button
                         openFileButton.Visible = false;
-                        totalText.Text = $"Excluding trainer cards, I have {total} Pokemon Cards!\nMy favorite generation of games is 5 or 4 (including Legends Arceus). My favorite Pokemon List probably comes from Gen 8, although 6, 9, and 4 are all really close. \nThe cards that I chose for each generation is my overall favorite Pokemon from each gen, and my favorite card of theirs (excluding Dragapult, the official Pokemon TCG doesn't have the 'Dragapult Prime' card sadly).\nThe Grookey line is my favorite starter, Yveltal is my favorite Legendary, and Darkrai my favorite overall.\nMy favorite card of all time is Charizard Star (Delta Species) from Dragon Frontiers, since I distinctly remember having that card as a kid.";
-                        textGen1.Text = $"{totalGen1} cards from Generation 1!";
-                        textGen2.Text = $"{totalGen2} cards from Generation 2!";
-                        textGen3.Text = $"{totalGen3} cards from Generation 3!";
-                        textGen4.Text = $"{totalGen4} cards from Generation 4!";
-                        textGen5.Text = $"{totalGen5} cards from Generation 5!";
-                        textGen6.Text = $"{totalGen6} cards from Generation 6!";
-                        textGen7.Text = $"{totalGen7} cards from Generation 7!";
-                        textGen8.Text = $"{totalGen8} cards from Generation 8!";
-                        textGen9.Text = $"{totalGen9} cards from Generation 9!";
+                        totalText.Text = $"Excluding trainer cards, I have {total:n0} Pokemon Cards!\nMy favorite generation is either 5 or 4 (if you include " +
+                            $"Legends Arceus). My favorite Pokemon designs come from Gen 8, although 6, 9, and 4 are all close. \nThe display cards " +
+                            $"for each generation are my favorite Pokemon's best card (imo - excluding Dragapult, the official Pokemon TCG doesn't have the " +
+                            $"'Dragapult Prime' card).\nThe Grookey line is my favorite starter, " +
+                            $"Yveltal is my favorite Legendary, and Darkrai my favorite overall.\nMy favorite card of all time is Charizard Star " +
+                            $"(Delta Species) from Dragon Frontiers, since I distinctly remember having that card as a kid.";
+                        /*By the way - I could get a photo of the Dragapult Prime off of the Internet, but it won't be HD, and the background will be bad
+                        (Non transparent, and online background removers/ones that make it transparent have a hard time with a non standard image such as a 
+                        trading card)*/
+                        textGen1.Text = $"{totalGen1:n0} cards from Generation 1!";
+                        textGen2.Text = $"{totalGen2:n0} cards from Generation 2!";
+                        textGen3.Text = $"{totalGen3:n0} cards from Generation 3!";
+                        textGen4.Text = $"{totalGen4:n0} cards from Generation 4!";
+                        textGen5.Text = $"{totalGen5:n0} cards from Generation 5!";
+                        textGen6.Text = $"{totalGen6:n0} cards from Generation 6!";
+                        textGen7.Text = $"{totalGen7:n0} cards from Generation 7!";
+                        textGen8.Text = $"{totalGen8:n0} cards from Generation 8!";
+                        textGen9.Text = $"{totalGen9:n0} cards from Generation 9!";
                         gen1Card.Visible = true;
                         gen2Card.Visible = true;
                         gen3Card.Visible = true;
