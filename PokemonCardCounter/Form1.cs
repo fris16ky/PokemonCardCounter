@@ -164,11 +164,11 @@ namespace PokemonCardCounter
                                     {
                                         totalReverse += number;
                                     }
-                                    else if (i + 1 < words.Length && words[i + 1] == "Holo")
+                                    if (i + 1 < words.Length && words[i + 1].TrimEnd(',').TrimEnd(')') == "Holo")
                                     {
-                                        totalHolo += number;
+                                        totalHolo += number; //went from 301 to 876, and adjusted when I changed the values!
                                     }
-                                    else if (i + 2 < words.Length && (words[i + 1] == "Special"))
+                                    if (i + 1 < words.Length && (words[i + 1] == "Special"))
                                     {
                                         //Dealing with Special Pattern Holos (workaround because I'm lazy rn)
                                         totalHolo += number;
