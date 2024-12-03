@@ -70,7 +70,7 @@ namespace PokemonCardCounter
                     {
                         //Starting to read the file inputted, initialize important values
                         int total = 0;
-                        int totalGen1 = 0, totalGen2 = 0, totalGen3 = 0, totalGen4 = 0, totalGen5 = 0, totalGen6 = 0, totalGen7 = 0, totalGen8 = 0, totalGen9 = 0;
+                        int totalGen1 = 0, totalGen2 = 0, totalGen3 = 0, totalGen4 = 0, totalGen5 = 0, totalGen6 = 0, totalGen7 = 0, totalGen8 = 0, totalGen9 = 0, totalReverse = 0, totalHolo = 0;
                         bool reachedGen2 = false, reachedGen3 = false, reachedGen4 = false, reachedGen5 = false, reachedGen6 = false, reachedGen7 = false,
                             reachedGen8 = false, reachedGen9 = false, reachedEnd = false;
 
@@ -148,11 +148,32 @@ namespace PokemonCardCounter
                             }
 
                             //Iterate over each word in the line
-                            foreach (string word in words)
+                            for (int i = 0; i < words.Length; i++) 
                             {
                                 // Try parsing each word as an integer
-                                if (int.TryParse(word, out int number))
+                                if (int.TryParse(words[i], out int number))
                                 {
+                                    /*
+                                    If there is a count (number that parsed) and the next word is Reverse or Holo, then do separate calculations for fun
+                                    Changed my WordPad document to account for this; "10 Japanese Reverse Holo" changed to "10 Reverse Holo Japanese"
+                                    for simplicity/ease of coding. Only looking at the next word to avoid having to tiptoe around Reverse Holo also containing
+                                    "Holo". Tallying this up purely for fun. Maybe will eventually do the 'V, VMax, VStar, EX, GX' and whatevers, 
+                                    altho that'll also include shit like 'Full Art V', 'Alt Art EX', etc. So it'll be a pain
+                                    */
+                                    if (i + 1 < words.Length && words[i + 1] == "Reverse")
+                                    {
+                                        totalReverse += number;
+                                    }
+                                    else if (i + 1 < words.Length && words[i + 1] == "Holo")
+                                    {
+                                        totalHolo += number;
+                                    }
+                                    else if (i + 2 < words.Length && (words[i + 1] == "Special"))
+                                    {
+                                        //Dealing with Special Pattern Holos (workaround because I'm lazy rn)
+                                        totalHolo += number;
+                                    }
+
                                     //If the parsing succeeds, it's an integer. Add to the total(s)
                                     if (!reachedGen2)
                                     {
@@ -201,9 +222,14 @@ namespace PokemonCardCounter
                             }
                         }
 
+                        totalReverse += 5; //hard coding to account for the VERY rare case of 'Special Pattern REVERSE Holos'
+                        totalHolo -= 5; //likewise, those would've gotten picked up by the Holos. 
+                        totalHolo += 17; //18 Special Pattern Holos that weren't covered (special names), but one that was covered but shouldn't
+
                         //Display the sums in the text boxes, make everything visible whilst hiding the OpenFile button
                         openFileButton.Visible = false;
-                        totalText.Text = $"Excluding trainer cards, I have {total:n0} Pokemon Cards!\nMy favorite generation is either 5 or 4 (if you include " +
+                        totalText.Text = $"Excluding trainer cards, I have {total:n0} Pokemon Cards!\n{totalReverse:n0} of those are Reverse Holos, and " +
+                            $"{totalHolo:n0} of those are Holographics!\nMy favorite generation is either 5 or 4 (if you include " +
                             $"Legends Arceus). My favorite Pokemon designs come from Gen 8, although 6, 9, and 4 are all close. \nThe display cards " +
                             $"for each generation are my favorite Pokemon's best card (imo - excluding Dragapult, the official Pokemon TCG doesn't have the " +
                             $"'Dragapult Prime' card).\nThe Grookey line is my favorite starter, " +
